@@ -80,5 +80,23 @@ namespace DoJourAPI.Tests.Repositories
             Assert.Equal("Updated Date 1", result.Date);
             Assert.Equal("Updated Text 1", result.Text);
         }
+
+        [Fact]
+        public async Task DeleteAsync_removesEntryFromDatabase()
+        {
+            var helpers = new RepositoryTestHelpers();
+            var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+            var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
+
+            var beforeDelete = await entryRepository.GetAllAsync();
+            var beforeDeleteList = beforeDelete.ToList();
+
+            await entryRepository.DeleteAsync(1);
+
+            var result = await entryRepository.GetAllAsync();
+            var resultList = result.ToList();
+
+            Assert.Equal(beforeDeleteList.Count() - 1, resultList.Count());
+        }
     }
 }
