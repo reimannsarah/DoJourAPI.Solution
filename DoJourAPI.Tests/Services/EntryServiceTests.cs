@@ -65,4 +65,14 @@ public class EntryServiceTests
 
     _entryRepositoryMock.Verify(x => x.UpdateAsync(entryToUpdate));
   }
+
+  [Fact]
+  public async Task DeleteEntryAsync_ShouldDeleteEntry()
+  {
+    var entryToDelete = new Entry { EntryId = 1, Title = "Entry 1" };
+
+    await _entryService.DeleteEntryAsync(entryToDelete.EntryId);
+
+    _entryRepositoryMock.Verify(x => x.DeleteAsync(entryToDelete.EntryId));
+  }
 }
