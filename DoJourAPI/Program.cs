@@ -1,6 +1,7 @@
 using DoJourAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+using DoJourAPI.Services;
+using DoJourAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,10 +24,14 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(builder => 
     {
         builder.AllowAnyHeader()
+                .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowAnyOrigin();
     });
 });
+
+builder.Services.AddScoped<IEntryService, EntryService>();
+builder.Services.AddScoped<IEntryRepository, EntryRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
