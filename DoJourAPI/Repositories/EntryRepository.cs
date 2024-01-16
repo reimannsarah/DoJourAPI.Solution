@@ -24,5 +24,11 @@ namespace DoJourAPI.Repositories
         {
             return await _context.Entries.SingleOrDefaultAsync(entry => entry.EntryId == id);
         }
+
+        public async Task CreateAsync(Entry entry)
+        {
+            await _context.Entries.AddAsync(entry);
+            await _context.SaveChangesAsync();
+        }
     }
 }
