@@ -56,5 +56,29 @@ namespace DoJourAPI.Tests.Repositories
 
             Assert.Equal(4, result.EntryId);
         }
+
+        [Fact]
+        public async Task UpdateAsync_updatesEntryInDatabase()
+        {
+            var helpers = new RepositoryTestHelpers();
+            var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+            var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
+
+            var entryToUpdate = await entryRepository.GetByIdAsync(1);
+
+            entryToUpdate.Title = "Updated Title 1";
+            entryToUpdate.Subject = "Updated Subject 1";
+            entryToUpdate.Date = "Updated Date 1";
+            entryToUpdate.Text = "Updated Text 1";
+
+            await entryRepository.UpdateAsync(entryToUpdate);
+
+            var result = await entryRepository.GetByIdAsync(1);
+
+            Assert.Equal("Updated Title 1", result.Title);
+            Assert.Equal("Updated Subject 1", result.Subject);
+            Assert.Equal("Updated Date 1", result.Date);
+            Assert.Equal("Updated Text 1", result.Text);
+        }
     }
 }
