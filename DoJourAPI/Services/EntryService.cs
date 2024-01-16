@@ -29,4 +29,9 @@ public class EntryService : IEntryService
     {
         await _entryRepository.CreateAsync(entry);
     }
+
+    public async Task UpdateEntryAsync(Entry entry)
+    {
+        await _entryRepository.UpdateAsync(entry);
+    }
 }
