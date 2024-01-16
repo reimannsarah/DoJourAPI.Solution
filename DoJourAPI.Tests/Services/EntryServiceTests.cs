@@ -4,6 +4,7 @@ using DoJourAPI.Repositories;
 using DoJourAPI.Services;
 using Xunit;
 
+namespace DoJourAPI.Tests.Services;
 public class EntryServiceTests
 {
   private Mock<IEntryRepository> _entryRepositoryMock;
