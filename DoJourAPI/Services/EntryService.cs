@@ -34,4 +34,9 @@ public class EntryService : IEntryService
     {
         await _entryRepository.UpdateAsync(entry);
     }
+
+    public async Task DeleteEntryAsync(int id)
+    {
+        await _entryRepository.DeleteAsync(id);
+    }
 }
