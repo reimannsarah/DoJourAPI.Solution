@@ -25,7 +25,6 @@ public class EntryControllerTests
   [Fact]
   public async Task GetAllEntries_ShouldReturnAllEntries()
   {
-    // Arrange
     var expectedEntries = new List<Entry>
     {
       new Entry { EntryId = 1, Title = "Entry 1" },
@@ -34,13 +33,24 @@ public class EntryControllerTests
     };
     _entryServiceMock.Setup(service => service.GetAllEntriesAsync()).ReturnsAsync(expectedEntries);
 
-    // Act
     var result = await _entriesController.GetAllEntries();
 
-    // Assert
     var okResult = Assert.IsType<OkObjectResult>(result);
     var actualEntries = Assert.IsType<List<Entry>>(okResult.Value);
     Assert.Equal(expectedEntries, actualEntries);
+  }
+
+  [Fact]
+  public async Task GetEntryById_ShouldReturnEntryWithMatchingId()
+  {
+    var expectedEntry = new Entry { EntryId = 1, Title = "Entry 1" };
+    _entryServiceMock.Setup(service => service.GetEntryByIdAsync(1)).ReturnsAsync(expectedEntry);
+
+    var result = await _entriesController.GetEntryById(1);
+
+    var okResult = Assert.IsType<OkObjectResult>(result);
+    var actualEntry = Assert.IsType<Entry>(okResult.Value);
+    Assert.Equal(expectedEntry, actualEntry);
   }
 
 }
