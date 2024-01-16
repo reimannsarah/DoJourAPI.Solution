@@ -23,4 +23,15 @@ public class EntriesController : ControllerBase
         var entries = await _entryService.GetAllEntriesAsync();
         return Ok(entries);
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetEntryById(int id)
+    {
+        var entry = await _entryService.GetEntryByIdAsync(id);
+        if (entry == null)
+        {
+            return NotFound();
+        }
+        return Ok(entry);
+    }
 }
