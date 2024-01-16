@@ -19,4 +19,9 @@ public class EntryService : IEntryService
     {
         return await _entryRepository.GetAllAsync();
     }
+
+    public async Task<Entry> GetEntryByIdAsync(int id)
+    {
+        return await _entryRepository.GetByIdAsync(id);
+    }
 }
