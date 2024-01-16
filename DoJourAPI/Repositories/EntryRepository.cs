@@ -19,5 +19,10 @@ namespace DoJourAPI.Repositories
         {
             return await _context.Entries.ToListAsync();
         }
+
+        public async Task<Entry> GetByIdAsync(int id)
+        {
+            return await _context.Entries.SingleOrDefaultAsync(entry => entry.EntryId == id);
+        }
     }
 }

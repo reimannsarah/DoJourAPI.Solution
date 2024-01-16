@@ -20,5 +20,17 @@ namespace DoJourAPI.Tests.Repositories
 
             Assert.Equal(3, resultList.Count());
         }
+
+        [Fact]
+        public async Task GetByIdAsync_returnsEntryWithMatchingId()
+        {
+            var helpers = new RepositoryTestHelpers();
+            var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+            var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
+
+            var result = await entryRepository.GetByIdAsync(1);
+
+            Assert.Equal(1, result.EntryId);
+        }
     }
 }
