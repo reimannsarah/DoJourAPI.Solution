@@ -1,41 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DoJourAPI.Models;
-
-namespace DoJourAPI.Controllers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DoJourAPI.Repositories;
+using DoJourAPI.Services;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/entries")]
 public class EntriesController : ControllerBase
 {
-  private bool EntryExists(int id)
-  {
-    return _db.Entries.Any(entry => entry.EntryId == id);
-  }
+    private readonly IEntryService _entryService;
 
-  private readonly DoJourAPIContext _db;
+    public EntriesController(IEntryService entryService)
+    {
+        _entryService = entryService;
+    }
 
-  public EntriesController(DoJourAPIContext db)
-  {
-    _db = db;
-  }
     [HttpGet]
-#nullable enable
-  public async Task<ActionResult<IEnumerable<Entry>>> Get(string? title, string? date, string? subject)
-  {
-    var query = _db.Entries.AsQueryable();
-
-    if (title != null)
+    public async Task<IActionResult> GetAllEntries()
     {
-      query = query.Where(entry => entry.Title == title);
+        var entries = await _entryService.GetAllEntriesAsync();
+        return Ok(entries);
     }
-
-    if (date != null)
-    {
-      query = query.Where(entry => entry.Date == date);
-    }
-
-    return await query.ToListAsync();
-  }
-#nullable disable
 }
