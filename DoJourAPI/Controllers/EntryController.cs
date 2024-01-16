@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using DoJourAPI.Repositories;
 using DoJourAPI.Services;
 
+namespace DoJourAPI.Controllers;
+
 [ApiController]
 [Route("api/entries")]
 public class EntriesController : ControllerBase
