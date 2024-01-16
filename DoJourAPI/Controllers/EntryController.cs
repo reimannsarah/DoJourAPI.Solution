@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DoJourAPI.Repositories;
 using DoJourAPI.Services;
+using DoJourAPI.Models;
 
 namespace DoJourAPI.Controllers;
 
@@ -33,5 +34,12 @@ public class EntriesController : ControllerBase
             return NotFound();
         }
         return Ok(entry);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateEntry(Entry entry)
+    {
+        await _entryService.CreateEntryAsync(entry);
+        return CreatedAtAction(nameof(GetEntryById), new { id = entry.EntryId }, entry);
     }
 }
