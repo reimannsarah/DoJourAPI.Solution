@@ -65,4 +65,14 @@ public class EntryControllerTests
     Assert.Equal(entryToCreate, actualEntry);
   }
 
+  [Fact]
+  public async Task UpdateEntry_ShouldUpdateEntry()
+  {
+    var entryToUpdate = new Entry { EntryId = 1, Title = "Entry 1" };
+
+    var result = await _entriesController.UpdateEntry(1, entryToUpdate);
+
+    Assert.IsType<NoContentResult>(result);
+  }
+
 }
