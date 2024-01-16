@@ -36,5 +36,12 @@ namespace DoJourAPI.Repositories
             _context.Entries.Update(entry);
             await _context.SaveChangesAsync();
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            var entry = await GetByIdAsync(id);
+            _context.Entries.Remove(entry);
+            await _context.SaveChangesAsync();
+        }
     }
 }
