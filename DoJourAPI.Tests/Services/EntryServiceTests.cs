@@ -45,4 +45,14 @@ public class EntryServiceTests
 
     Assert.Equal(expectedEntry, actualEntry);
   }
+
+  [Fact]
+  public async Task CreateEntryAsync_ShouldCreateNewEntry()
+  {
+    var entryToCreate = new Entry { EntryId = 1, Title = "Entry 1" };
+
+    await _entryService.CreateEntryAsync(entryToCreate);
+
+    _entryRepositoryMock.Verify(x => x.CreateAsync(entryToCreate));
+  }
 }
