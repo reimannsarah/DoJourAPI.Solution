@@ -42,4 +42,15 @@ public class EntriesController : ControllerBase
         await _entryService.CreateEntryAsync(entry);
         return CreatedAtAction(nameof(GetEntryById), new { id = entry.EntryId }, entry);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateEntry(int id, Entry entry)
+    {
+        if (id != entry.EntryId)
+        {
+            return BadRequest();
+        }
+        await _entryService.UpdateEntryAsync(entry);
+        return NoContent();
+    }
 }
