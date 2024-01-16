@@ -55,4 +55,14 @@ public class EntryServiceTests
 
     _entryRepositoryMock.Verify(x => x.CreateAsync(entryToCreate));
   }
+
+  [Fact]
+  public async Task UpdateEntryAsync_ShouldUpdateEntry()
+  {
+    var entryToUpdate = new Entry { EntryId = 1, Title = "Entry 1" };
+
+    await _entryService.UpdateEntryAsync(entryToUpdate);
+
+    _entryRepositoryMock.Verify(x => x.UpdateAsync(entryToUpdate));
+  }
 }
