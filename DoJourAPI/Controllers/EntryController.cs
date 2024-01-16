@@ -53,4 +53,11 @@ public class EntriesController : ControllerBase
         await _entryService.UpdateEntryAsync(entry);
         return NoContent();
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEntry(int id)
+    {
+        await _entryService.DeleteEntryAsync(id);
+        return NoContent();
+    }
 }
