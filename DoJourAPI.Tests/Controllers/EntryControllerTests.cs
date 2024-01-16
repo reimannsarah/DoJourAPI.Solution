@@ -53,4 +53,16 @@ public class EntryControllerTests
     Assert.Equal(expectedEntry, actualEntry);
   }
 
+  [Fact]
+  public async Task CreateEntry_ShouldCreateNewEntry()
+  {
+    var entryToCreate = new Entry { EntryId = 1, Title = "Entry 1" };
+
+    var result = await _entriesController.CreateEntry(entryToCreate);
+
+    var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result);
+    var actualEntry = Assert.IsType<Entry>(createdAtActionResult.Value);
+    Assert.Equal(entryToCreate, actualEntry);
+  }
+
 }
