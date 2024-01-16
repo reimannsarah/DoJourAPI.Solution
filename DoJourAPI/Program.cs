@@ -11,9 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DoJourAPIContext>(
                     dbContextOptions => dbContextOptions
                         .UseMySql(
-                        builder.Configuration["ConnectionStrings:DefaultConnection"], 
+                        builder.Configuration["ConnectionStrings:AZURE_MYSQL_CONNECTIONSTRING"], 
                         ServerVersion.AutoDetect(
-                            builder.Configuration["ConnectionStrings:DefaultConnection"]
+                            builder.Configuration["ConnectionStrings:AZURE_MYSQL_CONNECTIONSTRING"]
                         )
                         )
                     );
