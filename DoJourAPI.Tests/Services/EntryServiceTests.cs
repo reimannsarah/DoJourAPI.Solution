@@ -32,4 +32,17 @@ public class EntryServiceTests
 
     Assert.Equal(expectedEntries, actualEntries);
   }
+
+  [Fact]
+  public async Task GetEntryByIdAsync_ShouldReturnEntryWithMatchingId()
+  {
+    var expectedEntry = new Entry { EntryId = 1, Title = "Entry 1" };
+    _entryRepositoryMock
+      .Setup(x => x.GetByIdAsync(1))
+      .ReturnsAsync(expectedEntry);
+
+    var actualEntry = await _entryService.GetEntryByIdAsync(1);
+
+    Assert.Equal(expectedEntry, actualEntry);
+  }
 }
