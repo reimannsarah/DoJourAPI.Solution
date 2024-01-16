@@ -75,4 +75,12 @@ public class EntryControllerTests
     Assert.IsType<NoContentResult>(result);
   }
 
+  [Fact]
+  public async Task DeleteEntry_ShouldDeleteEntry()
+  {
+    var result = await _entriesController.DeleteEntry(1);
+
+    Assert.IsType<NoContentResult>(result);
+  }
+
 }
