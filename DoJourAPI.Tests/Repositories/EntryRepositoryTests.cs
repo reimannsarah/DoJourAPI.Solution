@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using Xunit;
 using DoJourAPI.Models;
 
-namespace DoJourAPI.Tests.Repositories
-{
+namespace DoJourAPI.Tests.Repositories;
     public class EntryRepositoryTests
     {
         [Fact]
@@ -99,4 +98,3 @@ namespace DoJourAPI.Tests.Repositories
             Assert.Equal(beforeDeleteList.Count() - 1, resultList.Count());
         }
     }
-}
