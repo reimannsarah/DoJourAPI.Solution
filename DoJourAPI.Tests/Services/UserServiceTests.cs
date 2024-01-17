@@ -49,4 +49,14 @@ public class UserServiceTests
 
     _mockUserRepository.Verify(x => x.UpdateAsync(userToUpdate));
   }
+
+  [Fact]
+  public async Task DeleteUserAsync_ShouldDeleteUser()
+  {
+    var userToDelete = new User { UserId = Guid.NewGuid(), FirstName = "User 1" };
+
+    await _userService.DeleteUserAsync(userToDelete.UserId);
+
+    _mockUserRepository.Verify(x => x.DeleteAsync(userToDelete.UserId));
+  }
 }
