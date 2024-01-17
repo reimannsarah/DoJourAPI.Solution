@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using DoJourAPI.Models;
 using DoJourAPI.Repositories;
-using DoJourAPI.Services;
 
 namespace DoJourAPI.Services;
 
