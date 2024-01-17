@@ -16,4 +16,16 @@ public class UserRepository : IUserRepository
     return await _context.Users.ToListAsync();
   }
 
+  public async Task<User> GetByIdAsync(Guid id)
+  {
+    return await _context.Users.SingleOrDefaultAsync(user => user.UserId == id);
+  }
+
+  public async Task<User> CreateAsync(User user)
+  {
+    await _context.Users.AddAsync(user);
+    await _context.SaveChangesAsync();
+    return user;
+  }
+
 }
