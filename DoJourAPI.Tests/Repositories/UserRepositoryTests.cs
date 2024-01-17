@@ -95,4 +95,28 @@ public class UserRepositoryTests
 
     Assert.Equal(testUser, result);
   }
+
+  [Fact]
+  public async Task DeleteAsync_deletesUser()
+  {
+    var helpers = new UserRepositoryTestHelpers();
+    var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+    var userRepository = helpers.UserRepositoryInit(dbContextMock);
+    var testUser = new User
+    {
+      UserId = Guid.NewGuid(),
+      FirstName = "Test First Name 1",
+      LastName = "Test Last Name 1",
+      Email = "Test Email 1",
+      Password = "Test Password 1"
+    };
+
+    await userRepository.CreateAsync(testUser);
+
+    await userRepository.DeleteAsync(testUser.UserId);
+
+    var result = await userRepository.GetByIdAsync(testUser.UserId);
+
+    Assert.Null(result);
+  }
 }
