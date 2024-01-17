@@ -21,9 +21,9 @@ public class EntryServiceTests
   {
     var expectedEntries = new[]
     {
-      new Entry { EntryId = 1, Title = "Entry 1" },
-      new Entry { EntryId = 2, Title = "Entry 2" },
-      new Entry { EntryId = 3, Title = "Entry 3" }
+      new Entry { EntryId = Guid.NewGuid(), Title = "Entry 1" },
+      new Entry { EntryId = Guid.NewGuid(), Title = "Entry 2" },
+      new Entry { EntryId = Guid.NewGuid(), Title = "Entry 3" }
     };
     _entryRepositoryMock
       .Setup(x => x.GetAllAsync())
@@ -37,12 +37,12 @@ public class EntryServiceTests
   [Fact]
   public async Task GetEntryByIdAsync_ShouldReturnEntryWithMatchingId()
   {
-    var expectedEntry = new Entry { EntryId = 1, Title = "Entry 1" };
+    var expectedEntry = new Entry { EntryId = Guid.NewGuid(), Title = "Entry 1" };
     _entryRepositoryMock
-      .Setup(x => x.GetByIdAsync(1))
+      .Setup(x => x.GetByIdAsync(expectedEntry.EntryId))
       .ReturnsAsync(expectedEntry);
 
-    var actualEntry = await _entryService.GetEntryByIdAsync(1);
+    var actualEntry = await _entryService.GetEntryByIdAsync(expectedEntry.EntryId);
 
     Assert.Equal(expectedEntry, actualEntry);
   }
@@ -50,7 +50,7 @@ public class EntryServiceTests
   [Fact]
   public async Task CreateEntryAsync_ShouldCreateNewEntry()
   {
-    var entryToCreate = new Entry { EntryId = 1, Title = "Entry 1" };
+    var entryToCreate = new Entry { EntryId = Guid.NewGuid(), Title = "Entry 1" };
 
     await _entryService.CreateEntryAsync(entryToCreate);
 
@@ -60,7 +60,7 @@ public class EntryServiceTests
   [Fact]
   public async Task UpdateEntryAsync_ShouldUpdateEntry()
   {
-    var entryToUpdate = new Entry { EntryId = 1, Title = "Entry 1" };
+    var entryToUpdate = new Entry { EntryId = Guid.NewGuid(), Title = "Entry 1" };
 
     await _entryService.UpdateEntryAsync(entryToUpdate);
 
@@ -70,7 +70,7 @@ public class EntryServiceTests
   [Fact]
   public async Task DeleteEntryAsync_ShouldDeleteEntry()
   {
-    var entryToDelete = new Entry { EntryId = 1, Title = "Entry 1" };
+    var entryToDelete = new Entry { EntryId = Guid.NewGuid(), Title = "Entry 1" };
 
     await _entryService.DeleteEntryAsync(entryToDelete.EntryId);
 

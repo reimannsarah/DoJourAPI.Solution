@@ -27,10 +27,20 @@ namespace DoJourAPI.Tests.Repositories;
             var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
+            var testEntry = new Entry
+            {
+                EntryId = Guid.NewGuid(),
+                Title = "Test Title 1",
+                Subject = "Test Subject 1",
+                Date = "Test Date 1",
+                Text = "Test Text 1"
+            };
 
-            var result = await entryRepository.GetByIdAsync(1);
+            await entryRepository.CreateAsync(testEntry);
+            
+            var result = await entryRepository.GetByIdAsync(testEntry.EntryId);
 
-            Assert.Equal(1, result.EntryId);
+            Assert.Equal(testEntry, result);
         }
 
         [Fact]
@@ -42,7 +52,7 @@ namespace DoJourAPI.Tests.Repositories;
 
             var newEntry = new Entry
             {
-                EntryId = 4,
+                EntryId = Guid.NewGuid(),
                 Title = "Test Title 4",
                 Subject = "Test Subject 4",
                 Date = "Test Date 4",
@@ -51,9 +61,9 @@ namespace DoJourAPI.Tests.Repositories;
 
             await entryRepository.CreateAsync(newEntry);
 
-            var result = await entryRepository.GetByIdAsync(4);
+            var result = await entryRepository.GetByIdAsync(newEntry.EntryId);
 
-            Assert.Equal(4, result.EntryId);
+            Assert.Equal(newEntry.EntryId, result.EntryId);
         }
 
         [Fact]
@@ -63,7 +73,18 @@ namespace DoJourAPI.Tests.Repositories;
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
-            var entryToUpdate = await entryRepository.GetByIdAsync(1);
+            var testEntry = new Entry
+            {
+                EntryId = Guid.NewGuid(),
+                Title = "Test Title 4",
+                Subject = "Test Subject 4",
+                Date = "Test Date 4",
+                Text = "Test Text 4"
+            };
+
+            await entryRepository.CreateAsync(testEntry);
+
+            var entryToUpdate = await entryRepository.GetByIdAsync(testEntry.EntryId);
 
             entryToUpdate.Title = "Updated Title 1";
             entryToUpdate.Subject = "Updated Subject 1";
@@ -72,7 +93,7 @@ namespace DoJourAPI.Tests.Repositories;
 
             await entryRepository.UpdateAsync(entryToUpdate);
 
-            var result = await entryRepository.GetByIdAsync(1);
+            var result = await entryRepository.GetByIdAsync(testEntry.EntryId);
 
             Assert.Equal("Updated Title 1", result.Title);
             Assert.Equal("Updated Subject 1", result.Subject);
@@ -87,10 +108,21 @@ namespace DoJourAPI.Tests.Repositories;
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
+            var testEntry = new Entry
+            {
+                EntryId = Guid.NewGuid(),
+                Title = "Test Title 4",
+                Subject = "Test Subject 4",
+                Date = "Test Date 4",
+                Text = "Test Text 4"
+            };
+
+            await entryRepository.CreateAsync(testEntry);
+
             var beforeDelete = await entryRepository.GetAllAsync();
             var beforeDeleteList = beforeDelete.ToList();
 
-            await entryRepository.DeleteAsync(1);
+            await entryRepository.DeleteAsync(testEntry.EntryId);
 
             var result = await entryRepository.GetAllAsync();
             var resultList = result.ToList();
