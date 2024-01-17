@@ -7,23 +7,23 @@ using System;
 
 namespace DoJourAPI.Tests.Repositories
 {
-    public class RepositoryTestHelpers
+    public class EntryRepositoryTestHelpers
     {
-      public DoJourAPIContext GetDbContext(Entry[] initialEntities)
-          {
-              var options = new DbContextOptionsBuilder<DoJourAPIContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+        public DoJourAPIContext GetDbContext(Entry[] initialEntities)
+        {
+        var options = new DbContextOptionsBuilder<DoJourAPIContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
 
-              var context = new DoJourAPIContext(options);
+        var context = new DoJourAPIContext(options);
 
-              // Add your initial entities here
-              context.Entries.AddRange(GetInitialEntities());
-              context.SaveChanges();
+        // Add your initial entities here
+        context.Entries.AddRange(GetInitialEntities());
+        context.SaveChanges();
 
-              return context;
-          }
-          public EntryRepository EntryRepositoryInit(DoJourAPIContext dbContext)
+        return context;
+        }
+        public EntryRepository EntryRepositoryInit(DoJourAPIContext dbContext)
         {
             return new EntryRepository(dbContext);
         }
