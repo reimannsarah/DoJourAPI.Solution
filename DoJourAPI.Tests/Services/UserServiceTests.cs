@@ -29,4 +29,14 @@ public class UserServiceTests
 
     Assert.Equal(expectedUser, actualUser);
   }
+
+  [Fact]
+  public async Task CreateUserAsync_ShouldCreateNewUser()
+  {
+    var userToCreate = new User { UserId = Guid.NewGuid(), FirstName = "User 1" };
+
+    await _userService.CreateUserAsync(userToCreate);
+
+    _mockUserRepository.Verify(x => x.CreateAsync(userToCreate));
+  }
 }
