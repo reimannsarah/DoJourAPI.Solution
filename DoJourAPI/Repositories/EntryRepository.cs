@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using DoJourAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace DoJourAPI.Repositories
 {
