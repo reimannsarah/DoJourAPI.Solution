@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoJourAPI.Migrations
 {
     [DbContext(typeof(DoJourAPIContext))]
-    [Migration("20240113192935_Initial")]
+    [Migration("20240117183912_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
