@@ -33,6 +33,28 @@ public class UserRepositoryTests
   }
 
   [Fact]
+  public async Task GetByEmailAsync_returnsUserWithMatchingEmail()
+  {
+    var helpers = new UserRepositoryTestHelpers();
+    var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+    var userRepository = helpers.UserRepositoryInit(dbContextMock);
+    var testUser = new User
+    {
+      UserId = Guid.NewGuid(),
+      FirstName = "Test First Name 1",
+      LastName = "Test Last Name 1",
+      Email = "dragon@quail.com",
+      Password = "Test Password 1"
+    };
+
+    await userRepository.CreateAsync(testUser);
+
+    var result = await userRepository.GetByEmailAsync(testUser.Email);
+
+    Assert.Equal(testUser, result);
+  }
+
+  [Fact]
   public async Task CreateAsync_createsNewUser()
   {
     var helpers = new UserRepositoryTestHelpers();
