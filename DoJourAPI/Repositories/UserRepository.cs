@@ -21,16 +21,22 @@ public class UserRepository : IUserRepository
     return await _context.Users.SingleOrDefaultAsync(user => user.UserId == id);
   }
 
-  public async Task<User> CreateAsync(User user)
+  public async Task CreateAsync(User user)
   {
     await _context.Users.AddAsync(user);
     await _context.SaveChangesAsync();
-    return user;
   }
 
   public async Task UpdateAsync(User user)
   {
     _context.Users.Update(user);
+    await _context.SaveChangesAsync();
+  }
+
+  public async Task DeleteAsync(Guid id)
+  {
+    var user = await GetByIdAsync(id);
+    _context.Users.Remove(user);
     await _context.SaveChangesAsync();
   }
 }
