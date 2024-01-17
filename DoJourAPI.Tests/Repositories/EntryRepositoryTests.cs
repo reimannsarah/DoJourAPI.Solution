@@ -11,7 +11,7 @@ namespace DoJourAPI.Tests.Repositories;
         [Fact]
         public async Task GetAllAsync_returnsAllEntries()
         {
-            var helpers = new RepositoryTestHelpers();
+            var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
@@ -24,7 +24,7 @@ namespace DoJourAPI.Tests.Repositories;
         [Fact]
         public async Task GetByIdAsync_returnsEntryWithMatchingId()
         {
-            var helpers = new RepositoryTestHelpers();
+            var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
@@ -36,7 +36,7 @@ namespace DoJourAPI.Tests.Repositories;
         [Fact]
         public async Task CreateAsync_addsEntryToDatabase()
         {
-            var helpers = new RepositoryTestHelpers();
+            var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
@@ -59,7 +59,7 @@ namespace DoJourAPI.Tests.Repositories;
         [Fact]
         public async Task UpdateAsync_updatesEntryInDatabase()
         {
-            var helpers = new RepositoryTestHelpers();
+            var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
@@ -83,7 +83,7 @@ namespace DoJourAPI.Tests.Repositories;
         [Fact]
         public async Task DeleteAsync_removesEntryFromDatabase()
         {
-            var helpers = new RepositoryTestHelpers();
+            var helpers = new EntryRepositoryTestHelpers();
             var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
             var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
 
