@@ -39,4 +39,14 @@ public class UserServiceTests
 
     _mockUserRepository.Verify(x => x.CreateAsync(userToCreate));
   }
+
+  [Fact]
+  public async Task UpdateUserAsync_ShouldUpdateUser()
+  {
+    var userToUpdate = new User { UserId = Guid.NewGuid(), FirstName = "User 1" };
+
+    await _userService.UpdateUserAsync(userToUpdate);
+
+    _mockUserRepository.Verify(x => x.UpdateAsync(userToUpdate));
+  }
 }
