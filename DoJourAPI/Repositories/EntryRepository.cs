@@ -20,7 +20,7 @@ namespace DoJourAPI.Repositories
             return await _context.Entries.ToListAsync();
         }
 
-        public async Task<Entry> GetByIdAsync(int id)
+        public async Task<Entry> GetByIdAsync(Guid id)
         {
             return await _context.Entries.SingleOrDefaultAsync(entry => entry.EntryId == id);
         }
@@ -37,7 +37,7 @@ namespace DoJourAPI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var entry = await GetByIdAsync(id);
             _context.Entries.Remove(entry);

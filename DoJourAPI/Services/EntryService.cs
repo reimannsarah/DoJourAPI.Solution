@@ -20,7 +20,7 @@ public class EntryService : IEntryService
         return await _entryRepository.GetAllAsync();
     }
 
-    public async Task<Entry> GetEntryByIdAsync(int id)
+    public async Task<Entry> GetEntryByIdAsync(Guid id)
     {
         return await _entryRepository.GetByIdAsync(id);
     }
@@ -35,7 +35,7 @@ public class EntryService : IEntryService
         await _entryRepository.UpdateAsync(entry);
     }
 
-    public async Task DeleteEntryAsync(int id)
+    public async Task DeleteEntryAsync(Guid id)
     {
         await _entryRepository.DeleteAsync(id);
     }

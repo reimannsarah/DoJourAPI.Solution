@@ -34,7 +34,7 @@ public class UserRepositoryTestHelpers
     {
       new User
       {
-        UserId = 1,
+        UserId = Guid.NewGuid(),
         FirstName = "Test FirstName 1",
         LastName = "Test LastName 1",
         Email = "Test Email 1",
@@ -42,7 +42,7 @@ public class UserRepositoryTestHelpers
       },
       new User
       {
-        UserId = 2,
+        UserId = Guid.NewGuid(),
         FirstName = "Test FirstName 2",
         LastName = "Test LastName 2",
         Email = "Test Email 2",
@@ -50,7 +50,7 @@ public class UserRepositoryTestHelpers
       },
       new User
       {
-        UserId = 3,
+        UserId = Guid.NewGuid(),
         FirstName = "Test FirstName 3",
         LastName = "Test LastName 3",
         Email = "Test Email 3",

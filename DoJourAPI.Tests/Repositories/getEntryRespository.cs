@@ -34,7 +34,7 @@ namespace DoJourAPI.Tests.Repositories
             {
                 new Entry
                 {
-                    EntryId = 1,
+                    EntryId = Guid.NewGuid(),
                     Title = "Test Title 1",
                     Subject = "Test Subject 1",
                     Date = "Test Date 1",
@@ -42,7 +42,7 @@ namespace DoJourAPI.Tests.Repositories
                 },
                 new Entry
                 {
-                    EntryId = 2,
+                    EntryId = Guid.NewGuid(),
                     Title = "Test Title 2",
                     Subject = "Test Subject 2",
                     Date = "Test Date 2",
@@ -50,7 +50,7 @@ namespace DoJourAPI.Tests.Repositories
                 },
                 new Entry
                 {
-                    EntryId = 3,
+                    EntryId = Guid.NewGuid(),
                     Title = "Test Title 3",
                     Subject = "Test Subject 3",
                     Date = "Test Date 3",

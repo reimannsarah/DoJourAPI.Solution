@@ -23,7 +23,7 @@ public class EntriesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetEntryById(int id)
+    public async Task<IActionResult> GetEntryById(Guid id)
     {
         var entry = await _entryService.GetEntryByIdAsync(id);
         if (entry == null)
@@ -41,7 +41,7 @@ public class EntriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateEntry(int id, Entry entry)
+    public async Task<IActionResult> UpdateEntry(Guid id, Entry entry)
     {
         if (id != entry.EntryId)
         {
@@ -52,7 +52,7 @@ public class EntriesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteEntry(int id)
+    public async Task<IActionResult> DeleteEntry(Guid id)
     {
         await _entryService.DeleteEntryAsync(id);
         return NoContent();
