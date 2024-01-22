@@ -56,11 +56,15 @@ A database to hold journal entries. This API is hosted on Azure and is intended 
 * Endpoints for **v1.0** are as follows:
 
 ```
-National Parks:
-GET https://localhost:7158/api/entries/
-GET https://localhost:7158/api/entries/{id}
-PUT https://localhost:7158/api/entries/{id}
-DELETE https://localhost:7158/entries/{id}
+DoJourAPI:
+GET https://do-jour-api.azurewebsites.net/api/entries
+GET https://do-jour-api.azurewebsites.net/api/entries/{id}
+POST https://do-jour-api.azurewebsites.net/api/entries
+PUT https://do-jour-api.azurewebsites.net/api/entries/{id}
+DELETE https://do-jour-api.azurewebsites.net/entries/{id}
+
+POST https://do-jour-api.azurewebsites.net/api/users/login
+POST https://do-jour-api.azurewebsites.net/api/users/register
 
 ```
 # To test routes in Swagger: 
