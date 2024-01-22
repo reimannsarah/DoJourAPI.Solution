@@ -15,6 +15,13 @@ public class UsersController : ControllerBase
     _userService = userService;
   }
 
+  private readonly TokenService _tokenService;
+
+  public UsersController(TokenService tokenService)
+  {
+    _tokenService = tokenService;
+  }
+
   [HttpPost("register")]
   public async Task<IActionResult> RegisterUser(User user)
   {
@@ -41,6 +48,8 @@ public class UsersController : ControllerBase
     {
       return Unauthorized();
     }
-    return Ok(foundUser);
+
+    var token = _tokenService.GenerateToken(foundUser);
+    return Ok(new { Token = token });
   }
 }
