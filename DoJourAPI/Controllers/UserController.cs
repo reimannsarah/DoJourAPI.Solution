@@ -25,31 +25,55 @@ public class UsersController : ControllerBase
   [HttpPost("register")]
   public async Task<IActionResult> RegisterUser(User user)
   {
-    var existingUser = await _userService.GetUserByEmailAsync(user.Email);
-    if (existingUser != null)
+    if (!ModelState.IsValid)
     {
-      return BadRequest("A user with this email already exists.");
+      return BadRequest(ModelState);
     }
 
-    user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-    await _userService.CreateUserAsync(user);
-    return Ok();
+    try
+    {
+      var existingUser = await _userService.GetUserByEmailAsync(user.Email);
+      if (existingUser != null)
+      {
+        return BadRequest("A user with this email already exists.");
+      }
+
+      user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+      await _userService.CreateUserAsync(user);
+      return Ok();
+    }
+    catch (Exception ex)
+    {
+      return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
   }
 
   [HttpPost("login")]
   public async Task<IActionResult> LoginUser(User user)
   {
-    var foundUser = await _userService.GetUserByEmailAsync(user.Email);
-    if (foundUser == null)
+    if (!ModelState.IsValid)
     {
-      return NotFound();
-    }
-    if (!BCrypt.Net.BCrypt.Verify(user.Password, foundUser.Password))
-    {
-      return Unauthorized();
+      return BadRequest(ModelState);
     }
 
-    var token = _tokenService.GenerateToken(foundUser);
-    return Ok(new { Token = token });
+    try
+    {
+      var foundUser = await _userService.GetUserByEmailAsync(user.Email);
+      if (foundUser == null)
+      {
+        return NotFound();
+      }
+      if (!BCrypt.Net.BCrypt.Verify(user.Password, foundUser.Password))
+      {
+        return Unauthorized();
+      }
+
+      var token = _tokenService.GenerateToken(foundUser);
+      return Ok(new { Token = token });
+    }
+    catch (Exception ex)
+    {
+      return StatusCode(500, $"Internal server error: {ex.Message}");
+    }
   }
 }
