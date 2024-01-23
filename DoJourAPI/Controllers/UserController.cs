@@ -9,17 +9,13 @@ namespace DoJourAPI.Controllers;
 
 public class UsersController : ControllerBase
 {
-  private readonly IUserService _userService;
-  public UsersController(IUserService userService)
-  {
-    _userService = userService;
-  }
-
   private readonly TokenService _tokenService;
+  private readonly IUserService _userService;
 
-  public UsersController(TokenService tokenService)
+  public UsersController(TokenService tokenService, IUserService userService)
   {
     _tokenService = tokenService;
+    _userService = userService;
   }
 
   [HttpPost("register")]
