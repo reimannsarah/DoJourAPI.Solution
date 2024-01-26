@@ -22,6 +22,13 @@ namespace DoJourAPI.Repositories
             return await _context.Entries.SingleOrDefaultAsync(entry => entry.EntryId == id);
         }
 
+        public async Task<IEnumerable<Entry>> GetByUserIdAsync(Guid userId)
+        {
+            return await _context.Entries
+                .Where(entry => entry.UserId == userId)
+                .ToListAsync();
+        }
+
         public async Task CreateAsync(Entry entry)
         {
             await _context.Entries.AddAsync(entry);
