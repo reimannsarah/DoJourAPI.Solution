@@ -36,7 +36,10 @@ public class UsersController : ControllerBase
 
       user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
       await _userService.CreateUserAsync(user);
-      return Ok(new { message = "User registered successfully" });
+
+      var token = _tokenService.GenerateToken(user);
+
+      return Ok(new { token, message = "User registered successfully" });
     }
     catch (Exception ex)
     {
