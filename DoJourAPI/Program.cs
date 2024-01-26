@@ -5,6 +5,7 @@ using DoJourAPI.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,6 +55,8 @@ builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+Env.Load();
 
 var app = builder.Build();
 
