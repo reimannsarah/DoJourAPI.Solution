@@ -129,4 +129,29 @@ namespace DoJourAPI.Tests.Repositories;
 
             Assert.Equal(beforeDeleteList.Count() - 1, resultList.Count());
         }
+
+        [Fact]
+        public async Task GetByUserIdAsync_returnsEntriesWithMatchingUserId()
+        {
+            var helpers = new EntryRepositoryTestHelpers();
+            var dbContextMock = helpers.GetDbContext(helpers.GetInitialEntities());
+            var entryRepository = helpers.EntryRepositoryInit(dbContextMock);
+
+            var testEntry = new Entry
+            {
+                EntryId = Guid.NewGuid(),
+                Title = "Test Title 4",
+                Subject = "Test Subject 4",
+                Date = "Test Date 4",
+                Text = "Test Text 4",
+                UserId = Guid.Parse("00000000-0000-0000-0000-000000000001")
+            };
+
+            await entryRepository.CreateAsync(testEntry);
+
+            var result = await entryRepository.GetByUserIdAsync(testEntry.UserId);
+            var resultList = result.ToList();
+
+            Assert.Equal(2, resultList.Count());
+        }
     }

@@ -6,16 +6,25 @@ using DoJourAPI.Controllers;
 using DoJourAPI.Services;
 using DoJourAPI.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 
 public class UsersControllerTests
 {
   private readonly Mock<IUserService> _mockUserService;
+  private readonly TokenService _tokenService;
   private readonly UsersController _controller;
 
   public UsersControllerTests()
   {
     _mockUserService = new Mock<IUserService>();
-    _controller = new UsersController(_mockUserService.Object);
+    var configuration = new ConfigurationBuilder()
+    .AddInMemoryCollection(new List<KeyValuePair<string, string?>>
+    {
+        new KeyValuePair<string, string?>("JWT_SECRET_KEY", Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? string.Empty)
+    })
+    .Build();
+    _tokenService = new TokenService(configuration);
+    _controller = new UsersController(_tokenService, _mockUserService.Object);
   }
 
   [Fact]
@@ -30,12 +39,12 @@ public class UsersControllerTests
     var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
     var modelState = badRequestResult.Value as ModelStateDictionary;
 
-    if (modelState != null)
+    if (modelState != null) ;
     {
       if (modelState.ContainsKey("Email"))
       {
         var emailErrors = modelState["Email"].Errors;
-        if (emailErrors != null && emailErrors.Count > 0)
+        if (emailErrors != null && emailErrors.Count > 0 && emailErrors[0] != null)
         {
           Assert.Contains("Invalid email format", emailErrors[0].ErrorMessage);
         }
