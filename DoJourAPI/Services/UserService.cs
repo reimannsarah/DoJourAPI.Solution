@@ -5,35 +5,52 @@ namespace DoJourAPI.Services;
 
 public class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+  private readonly IUserRepository _userRepository;
 
-    public UserService(IUserRepository userRepository)
+  public UserService(IUserRepository userRepository)
+  {
+    _userRepository = userRepository;
+  }
+
+  public async Task<User> GetUserByIdAsync(Guid id)
+  {
+    return await _userRepository.GetByIdAsync(id);
+  }
+
+  public async Task<User> GetUserByEmailAsync(string email)
+  {
+    try
     {
-        _userRepository = userRepository;
+      var user = await _userRepository.GetByEmailAsync(email);
+      return user;
     }
-
-    public async Task<User> GetUserByIdAsync(Guid id)
+    catch (Exception ex)
     {
-        return await _userRepository.GetByIdAsync(id);
+      Console.WriteLine(ex.Message);
+      throw;
     }
+  }
 
-    public async Task<User> GetUserByEmailAsync(string email)
-    {
-        return await _userRepository.GetByEmailAsync(email);
-    }
-
-    public async Task CreateUserAsync(User user)
+  public async Task CreateUserAsync(User user)
+{
+    try
     {
         await _userRepository.CreateAsync(user);
     }
-
-    public async Task UpdateUserAsync(User user)
+    catch (Exception ex)
     {
-        await _userRepository.UpdateAsync(user);
+        Console.WriteLine(ex.Message);
+        throw;
     }
+}
 
-    public async Task DeleteUserAsync(Guid id)
-    {
-        await _userRepository.DeleteAsync(id);
-    }
+  public async Task UpdateUserAsync(User user)
+  {
+    await _userRepository.UpdateAsync(user);
+  }
+
+  public async Task DeleteUserAsync(Guid id)
+  {
+    await _userRepository.DeleteAsync(id);
+  }
 }
