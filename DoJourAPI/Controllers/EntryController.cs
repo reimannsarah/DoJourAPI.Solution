@@ -33,6 +33,18 @@ public class EntriesController : ControllerBase
         return Ok(entry);
     }
 
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetEntriesByUserId(Guid userId)
+    {
+        var entries = await _entryService.GetEntriesByUserIdAsync(userId);
+        if (entries == null || !entries.Any())
+        {
+            return NotFound();
+        }
+
+        return Ok(entries);
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateEntry(Entry entry)
     {
