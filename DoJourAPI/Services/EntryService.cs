@@ -24,7 +24,8 @@ public class EntryService : IEntryService
 
     public async Task<IEnumerable<Entry>> GetEntriesByUserIdAsync(Guid userId)
     {
-        return await _entryRepository.GetByUserIdAsync(userId);
+        var entries = await _entryRepository.GetByUserIdAsync(userId);
+        return entries ?? new List<Entry>();
     }
 
     public async Task CreateEntryAsync(Entry entry)
