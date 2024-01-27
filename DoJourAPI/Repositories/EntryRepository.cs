@@ -24,6 +24,12 @@ namespace DoJourAPI.Repositories
 
         public async Task<IEnumerable<Entry>> GetByUserIdAsync(Guid userId)
         {
+            var userExists = await _context.Users.AnyAsync(user => user.UserId == userId);
+            if (!userExists)
+            {
+                throw new Exception("User not found");
+            }
+
             return await _context.Entries
                 .Where(entry => entry.UserId == userId)
                 .ToListAsync();
