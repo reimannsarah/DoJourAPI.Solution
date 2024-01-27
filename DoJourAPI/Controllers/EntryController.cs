@@ -36,13 +36,21 @@ public class EntriesController : ControllerBase
     [HttpGet("user/{userId}")]
     public async Task<IActionResult> GetEntriesByUserId(Guid userId)
     {
-        var entries = await _entryService.GetEntriesByUserIdAsync(userId);
-        if (entries == null || !entries.Any())
+        try
         {
-            return NotFound();
-        }
+            var entries = await _entryService.GetEntriesByUserIdAsync(userId);
+            if (entries == null || !entries.Any())
+            {
+                return Ok(new List<Entry>());
+            }
 
-        return Ok(entries);
+            return Ok(entries);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            return BadRequest("An error occurred");
+        }
     }
 
     [HttpPost]
