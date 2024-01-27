@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
 
       var token = _tokenService.GenerateToken(user);
 
-      return Ok(new { token, message = "User registered successfully" });
+      return Ok(new { token, user.UserId, message = "User registered successfully" });
     }
     catch (Exception ex)
     {
