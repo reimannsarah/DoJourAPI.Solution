@@ -68,7 +68,7 @@ public class UsersController : ControllerBase
       }
 
       var token = _tokenService.GenerateToken(foundUser);
-      return Ok(new { Token = token });
+      return Ok(new { Token = token, foundUser.UserId, foundUser.FirstName });
     }
     catch (Exception ex)
     {
